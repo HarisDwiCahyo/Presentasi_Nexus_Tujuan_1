@@ -1,0 +1,1071 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Metodologi &amp; Hasil, Pemetaan Emisi Industri Jawa Timur</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" rel="stylesheet">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/ag-grid-community@32.3.3/styles/ag-grid.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/ag-grid-community@32.3.3/styles/ag-theme-quartz.min.css" rel="stylesheet">
+<link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<svg style="display:none"><defs>
+  <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19H8.8A5 5 0 0 1 8 9.1 5.5 5.5 0 0 1 18.9 10 4.5 4.5 0 0 1 17.5 19z"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><circle cx="17" cy="10" r="3"/><path d="M2 21c0-4.4 3.1-7 7-7s7 2.6 7 7"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><rect x="3" y="12" width="4" height="9"/><rect x="10" y="7" width="4" height="14"/><rect x="17" y="3" width="4" height="18"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 2.5 3 15.5 0 18M12 3c-3 2.5-3 15.5 0 18"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10" cy="10" r="6.5"/><path d="M19.5 19.5 15 15"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 4.5h6.5A2.5 2.5 0 0 1 13 7v13a2.5 2.5 0 0 0-2.5-2.5H4z"/><path d="M20 4.5h-6.5A2.5 2.5 0 0 0 11 7v13a2.5 2.5 0 0 1 2.5-2.5H20z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.3"/><path d="M7.5 12.5l3 3 6-6.5"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3 2.5 20h19z"/><line x1="12" y1="9.5" x2="12" y2="14.5"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><circle cx="12" cy="12" r="8.3" stroke-dasharray="3 2.4"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></symbol>
+</defs></svg>
+
+<div class="progress-top" id="progressTop" style="width:0"></div>
+
+<!-- ======================= NAVBAR ======================= -->
+<nav class="navbar navbar-deck fixed-top px-3">
+  <div class="d-flex align-items-center gap-3 w-100">
+    <button class="btn btn-sm nav-pill" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocPanel">
+      <i class="bi bi-list"></i> Daftar Isi
+    </button>
+    <span class="navbar-brand mb-0">Emisi Industri <span>Jawa Timur</span></span>
+    <span class="text-muted-2 small d-none d-lg-inline" id="crumb"></span>
+    <div class="ms-auto d-flex align-items-center gap-2">
+      <span class="badge badge-step d-none d-md-inline">CESGS · KATALIS</span>
+      <span id="pageCounter">1 / 29</span>
+    </div>
+  </div>
+</nav>
+
+<!-- ======================= DAFTAR ISI ======================= -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="tocPanel" style="width:340px">
+  <div class="offcanvas-header border-bottom">
+    <h5 class="offcanvas-title">Daftar Isi</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+  <div class="offcanvas-body py-2" id="tocList"></div>
+</div>
+
+<!-- ======================================================================
+     0 · COVER
+     ====================================================================== -->
+<section class="deck-page theme-dark active" data-group="Pembuka" data-title="Sampul">
+  <div class="glow glow-tr"></div>
+  <div class="container-xl py-4 position-relative fill-screen">
+    <p class="eyebrow mb-3">CESGS Universitas Airlangga · Studi KATALIS Jawa Timur</p>
+    <h1 class="display-title mb-3" style="max-width:19ch">Pemetaan Emisi Industri Jawa Timur</h1>
+    <p class="lead-sm mb-4" style="max-width:68ch;color:#C3D3B6">
+      Metodologi lengkap sembilan tahap dan seluruh hasil perhitungannya: dari statistik bahan bakar
+      pabrik tahun 2016, sampai peringkat kabupaten dan kota yang paling perlu didahulukan untuk
+      program dekarbonisasi pada 2025.
+    </p>
+    <div class="row g-3 mb-4">
+      <div class="col-6 col-lg-3"><div class="card card-sage h-100 p-3">
+        <p class="eyebrow mb-1" style="color:#36415A">Emisi 2025</p>
+        <p class="stat stat-lg mb-0">26,0 juta</p><p class="small-2 mb-0">ton CO₂e, lima sektor</p></div></div>
+      <div class="col-6 col-lg-3"><div class="card card-sage h-100 p-3">
+        <p class="eyebrow mb-1" style="color:#36415A">Kotak peta</p>
+        <p class="stat stat-lg mb-0" id="kpiGrid">857</p><p class="small-2 mb-0">±11×11 km, bisa dijelajahi</p></div></div>
+      <div class="col-6 col-lg-3"><div class="card card-sage h-100 p-3">
+        <p class="eyebrow mb-1" style="color:#36415A">Peringkat 1</p>
+        <p class="stat stat-lg mb-0" id="kpiKabTop">, </p><p class="small-2 mb-0"><span id="kpiKabTopPct">, </span> emisi terpetakan</p></div></div>
+      <div class="col-6 col-lg-3"><div class="card card-sage h-100 p-3">
+        <p class="eyebrow mb-1" style="color:#36415A">Perusahaan</p>
+        <p class="stat stat-lg mb-0" id="kpiCompany">, </p><p class="small-2 mb-0">titik lokasi tahun 2025</p></div></div>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+      <button class="btn btn-sm btn-light jump" data-jump="4"><i class="bi bi-diagram-3"></i> Lihat alur 9 tahap</button>
+      <button class="btn btn-sm btn-outline-light jump" data-jump="20"><i class="bi bi-geo-alt"></i> Peta sebaran</button>
+      <button class="btn btn-sm btn-outline-light jump" data-jump="23"><i class="bi bi-table"></i> Jelajahi 857 kotak</button>
+    </div>
+    <p class="text-muted-2 small-2 mt-4 mb-0">Oktober 2026 · gunakan panah ←/→, tombol bawah, atau Daftar Isi untuk berpindah halaman</p>
+  </div>
+</section>
+
+<!-- ======================================================================
+     2 · TUJUAN
+     ====================================================================== -->
+<section class="deck-page" data-group="Kerangka" data-title="Tujuan &amp; Pertanyaan Studi">
+  <div class="container-xl">
+    <div class="page-head d-flex align-items-end gap-3"><span class="step-num">01</span><h2 class="page-title">Tujuan dan Pertanyaan Studi</h2></div>
+    <div class="row g-3">
+      <div class="col-lg-6">
+        <div class="method-box mb-3">
+          <p class="eyebrow mb-1">Tujuan</p>
+          <p class="lead-sm mb-0">Menentukan kabupaten dan kota yang didahulukan untuk intervensi dekarbonisasi. Penilaian memakai tiga variabel sekaligus, yaitu emisi Scope 1 dan Scope 2, nilai tambah ekonomi, dan tenaga kerja. Gabungan ketiganya menjaga agar prioritas tidak jatuh pada wilayah beremisi tinggi yang perannya kecil bagi ekonomi dan lapangan kerja.</p>
+        </div>
+        <div class="card-soft p-3">
+          <p class="sub-title mb-2">Tiga pertanyaan yang dijawab</p>
+          <ol class="mb-0 lead-sm">
+            <li><strong>Berapa banyak emisinya?</strong> Dihitung dari bahan bakar dan listrik yang dipakai tiap kelompok industri <span class="text-muted-2">(Tahap 1–2)</span></li>
+            <li><strong>Di mana pabriknya dan seberapa besar?</strong> Dicari dari direktori resmi, dicocokkan titiknya di peta <span class="text-muted-2">(Tahap 3–5)</span></li>
+            <li><strong>Daerah mana yang didahulukan?</strong> Dinilai dari emisi, ekonomi, dan tenaga kerja sekaligus <span class="text-muted-2">(Tahap 6–9)</span></li>
+          </ol>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="row g-3">
+          <div class="col-12"><div class="card-soft p-3 d-flex gap-3 align-items-start">
+            <span class="icon-chip"><svg><use href="#i-cloud"/></svg></span>
+            <div><p class="sub-title mb-1">Emisi tinggi</p><p class="small mb-0 text-muted-2">Daerah beremisi besar berarti peluang penurunannya juga besar. Diukur sebagai Scope 1 + Scope 2 per kotak peta.</p></div>
+          </div></div>
+          <div class="col-12"><div class="card-soft p-3 d-flex gap-3 align-items-start">
+            <span class="icon-chip"><svg><use href="#i-chart"/></svg></span>
+            <div><p class="sub-title mb-1">Ekonomi besar</p><p class="small mb-0 text-muted-2">Daerah dengan nilai tambah besar berarti dampak kebijakannya luas. Diukur dari nilai tambah industri proyeksi 2025.</p></div>
+          </div></div>
+          <div class="col-12"><div class="card-soft p-3 d-flex gap-3 align-items-start">
+            <span class="icon-chip"><svg><use href="#i-users"/></svg></span>
+            <div><p class="sub-title mb-1">Banyak tenaga kerja</p><p class="small mb-0 text-muted-2">Daerah padat pekerja perlu dijaga saat bertransisi. Diukur dari tenaga kerja perusahaan tahun 2025.</p></div>
+          </div></div>
+          <div class="col-12"><div class="caveat">
+            <p class="small mb-0"><strong>Catatan arah penilaian.</strong> Ketiga variabel diperlakukan sebagai <em>benefit</em>, artinya makin besar nilainya makin diprioritaskan. Wilayah beremisi tinggi dibaca sebagai peluang penurunan emisi, bukan sebagai beban.</p>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     3 · CAKUPAN SEKTOR
+     ====================================================================== -->
+<section class="deck-page" data-group="Kerangka" data-title="Cakupan Sektor">
+  <div class="container-xl">
+    <div class="page-head d-flex align-items-end gap-3"><span class="step-num">02</span><h2 class="page-title">Cakupan: Lima Kelompok Industri</h2></div>
+    <p class="lead-sm mb-3">Kelima sektor ditetapkan dalam Kerangka Acuan. Pupuk dan Kimia keduanya berada pada KBLI 20, sehingga perlu langkah pemisahan tersendiri pada Tahap 7.</p>
+    <div class="table-responsive mb-3"><table class="table table-sm table-hover align-middle" id="tblScope"></table></div>
+    <div class="row g-3">
+      <div class="col-lg-7"><div class="chart-box"><p class="eyebrow mb-2">Jumlah perusahaan terdata per sektor (2025)</p><div class="chart-h-sm"><canvas id="chartCompany"></canvas></div></div></div>
+      <div class="col-lg-5"><div class="card-soft p-3 h-100"><p class="eyebrow mb-2">Jumlah perusahaan</p><table class="table table-sm" id="tblCompany"></table></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     4 · TAHUN & UNIT ANALISIS
+     ====================================================================== -->
+<section class="deck-page" data-group="Kerangka" data-title="Tahun Acuan &amp; Unit Analisis">
+  <div class="container-xl">
+    <div class="page-head d-flex align-items-end gap-3"><span class="step-num">03</span><h2 class="page-title">Tahun Acuan dan Unit Analisis</h2></div>
+    <div class="row g-3 mb-3">
+      <div class="col-md-4"><div class="card-soft p-3 h-100"><p class="eyebrow mb-1">Tahun acuan perhitungan</p><p class="stat stat-xl mb-1">2016</p>
+        <p class="small mb-0 text-muted-2">Terbitan terakhir Statistik Industri Besar &amp; Sedang yang memuat <strong>kuantitas bahan bakar dalam satuan fisik</strong> per KBLI dua digit. Satuan fisik adalah syarat perhitungan emisi langsung.</p></div></div>
+      <div class="col-md-4"><div class="card-soft p-3 h-100"><p class="eyebrow mb-1">Tahun sasaran hasil</p><p class="stat stat-xl mb-1">2025</p>
+        <p class="small mb-0 text-muted-2">Angka 2016 diproyeksikan memakai faktor pertumbuhan PDRB sektoral harga konstan 2010.</p></div></div>
+      <div class="col-md-4"><div class="card-soft p-3 h-100"><p class="eyebrow mb-1">Tahun populasi perusahaan</p><p class="stat stat-xl mb-1">2025</p>
+        <p class="small mb-0 text-muted-2">Daftar dan titik lokasi perusahaan disusun untuk kondisi 2025 agar sebaran emisi mengikuti keberadaan pabrik saat ini.</p></div></div>
+    </div>
+    <p class="eyebrow mb-2">Tiga tingkat unit analisis</p>
+    <div class="table-responsive"><table class="table table-sm table-hover align-middle" id="tblUnit"></table></div>
+    <div class="flow mt-3">
+      <div class="flow-step"><div class="fs-t">Provinsi</div><div class="fs-s">1 angka per sektor</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="fs-t">Perusahaan</div><div class="fs-s">3.641 titik, bobot tenaga kerja</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="fs-t">Sel grid</div><div class="fs-s">857 kotak 0,1°</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="fs-t">Kabupaten &amp; kota</div><div class="fs-s">Jawa Timur</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     5 · ALUR 4 BLOK / 9 TAHAP
+     ====================================================================== -->
+<section class="deck-page" data-group="Kerangka" data-title="Alur: 4 Blok, 9 Tahap">
+  <div class="container-xl">
+    <div class="page-head d-flex align-items-end gap-3"><span class="step-num">04</span><h2 class="page-title">Alur Kerja: Empat Blok, Sembilan Tahap</h2></div>
+    <p class="lead-sm mb-3">Keluaran satu blok menjadi masukan blok berikutnya. Klik kartu untuk membuka detail metode dan hasil tiap tahap.</p>
+    <div class="row g-3">
+      <div class="col-lg-3 col-md-6">
+        <div class="card-soft p-3 h-100 jump" data-jump="7">
+          <div class="d-flex justify-content-between align-items-start mb-2"><span class="step-num">A</span><span class="badge badge-ink">Tahap 1–2</span></div>
+          <p class="sub-title mb-1">Besaran</p>
+          <p class="small text-muted-2 mb-2">Berapa total emisi lima sektor di Jawa Timur pada 2025?</p>
+          <ul class="small mb-2 ps-3"><li>Tahap 1 · Emisi provinsi 2016 (S1 &amp; S2)</li><li>Tahap 2 · Proyeksi PDRB ke 2025</li></ul>
+          <p class="small-2 mb-0"><span class="badge badge-soft">Keluaran</span> satu angka emisi per sektor</p>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="card-soft p-3 h-100 jump" data-jump="11">
+          <div class="d-flex justify-content-between align-items-start mb-2"><span class="step-num">B</span><span class="badge badge-ink">Tahap 3–5</span></div>
+          <p class="sub-title mb-1">Lokasi</p>
+          <p class="small text-muted-2 mb-2">Di mana pabriknya berada dan seberapa besar ukurannya?</p>
+          <ul class="small mb-2 ps-3"><li>Tahap 3 · Populasi &amp; titik lokasi 2025</li><li>Tahap 4 · Pengisian tenaga kerja</li><li>Tahap 5 · Kerangka grid EDGAR</li></ul>
+          <p class="small-2 mb-0"><span class="badge badge-soft">Keluaran</span> 3.641 titik + grid kosong</p>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="card-soft p-3 h-100 jump" data-jump="14">
+          <div class="d-flex justify-content-between align-items-start mb-2"><span class="step-num">C</span><span class="badge badge-ink">Tahap 6–8</span></div>
+          <p class="sub-title mb-1">Sebaran</p>
+          <p class="small text-muted-2 mb-2">Bagaimana angka provinsi dipindahkan ke ruang?</p>
+          <ul class="small mb-2 ps-3"><li>Tahap 6 · Distribusi proxy tenaga kerja</li><li>Tahap 7 · Pemisahan Pupuk–Kimia</li><li>Tahap 8 · Nilai tambah &amp; tenaga kerja</li></ul>
+          <p class="small-2 mb-0"><span class="badge badge-soft">Keluaran</span> raster emisi, ekonomi, TK</p>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="card-sage p-3 h-100 jump" data-jump="17">
+          <div class="d-flex justify-content-between align-items-start mb-2"><span class="step-num" style="color:#36415A">D</span><span class="badge badge-ink">Tahap 9</span></div>
+          <p class="sub-title mb-1">Prioritas</p>
+          <p class="small mb-2">Kabupaten mana yang didahulukan?</p>
+          <ul class="small mb-2 ps-3"><li>Normalisasi per sektor</li><li>Skor ⅓ + ⅓ + ⅓</li><li>Agregasi kabupaten</li></ul>
+          <p class="small-2 mb-0"><span class="badge bg-light text-dark">Keluaran</span> peringkat kabupaten &amp; kota</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     6 · DUA JALUR DATA
+     ====================================================================== -->
+<section class="deck-page" data-group="Kerangka" data-title="Dua Jalur Data">
+  <div class="container-xl">
+    <div class="page-head d-flex align-items-end gap-3"><span class="step-num">05</span><h2 class="page-title">Dua Jalur Data dan Pembagian Perannya</h2></div>
+    <div class="table-responsive mb-3"><table class="table table-sm table-hover align-middle" id="tblTwoPaths"></table></div>
+    <div class="caveat">
+      <p class="mb-0 lead-sm"><strong>Perlu dicatat.</strong> Raster EDGAR dipakai dua kali dengan maksud berbeda. Semua sektor memakai geometri selnya sebagai kerangka kosong, sedangkan nilai emisinya hanya dipakai pada Scope 1 Kimia. Sektor lain memakai alokasi BPS lewat tenaga kerja.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     7 · SUMBER DATA
+     ====================================================================== -->
+<section class="deck-page" data-group="Kerangka" data-title="Sumber Data Primer">
+  <div class="container-xl">
+    <div class="page-head d-flex align-items-end gap-3"><span class="step-num">06</span><h2 class="page-title">Sumber Data Primer</h2></div>
+    <p class="lead-sm mb-2">Enam belas elemen data, dengan bagian yang dipakai dan tahap pemakaiannya.</p>
+    <div class="table-sticky"><table class="table table-sm table-hover align-middle mb-0" id="tblSources"></table></div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     8 · TAHAP 1, METODE
+     ====================================================================== -->
+<section class="deck-page" data-group="Blok A, Besaran" data-title="Tahap 1 · Emisi Provinsi 2016">
+  <div class="container-xl">
+    <div class="page-head d-flex align-items-end gap-3 flex-wrap">
+      <span class="step-num">T1</span><h2 class="page-title">Emisi Provinsi 2016 dari Statistik BPS</h2>
+      <span class="badge badge-step ms-auto">Blok A · Tahap 1 dari 9</span>
+    </div>
+    <div class="row g-3">
+      <div class="col-lg-4">
+        <div class="card-soft p-3 h-100">
+          <p class="eyebrow mb-2">Masukan</p>
+          <ul class="pt-list mb-0">
+            <li>Tabel 4.1 BPS: kuantitas 8 bahan bakar (fisik)</li>
+            <li>Tabel 4.2 &amp; 4.3 BPS: nilai BB dan input gabungan</li>
+            <li>Faktor emisi GHG Protocol</li>
+            <li>Tarif I-3 Rp 1.115/kWh · grid JAMALI 0,80</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="method-box h-100">
+          <p class="eyebrow mb-2">Scope 1, pembakaran</p>
+          <ul class="pt-list mb-0">
+            <li>8 bahan bakar per sektor</li>
+            <li>Pelumas dikeluarkan (non-energi)</li>
+            <li>Kuantitas × faktor emisi, satuan sama</li>
+            <li>CO₂ + CH₄ + N₂O → CO₂e (GWP AR5)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="method-box h-100">
+          <p class="eyebrow mb-2">Scope 2, listrik</p>
+          <ul class="pt-list mb-0">
+            <li>Listrik bersih = Tabel 4.3 − 4.2</li>
+            <li>Pelumas saling meniadakan</li>
+            <li>Bagi tarif → kWh</li>
+            <li>kWh × faktor grid JAMALI</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row g-3 mt-1">
+      <div class="col-lg-5">
+        <div class="formula-wrap h-100">
+          <div class="kf-label">Scope 1</div>
+          <div class="kf" data-tex="\begin{aligned} E_{S1} &= \textstyle\sum_i Q_i \cdot EF_i \\[2pt] EF_i &= EF_{CO_2} + 28\,EF_{CH_4} + 265\,EF_{N_2O} \end{aligned}"></div>
+          <ul class="kf-legend">
+            <li><b>E<sub>S1</sub></b> emisi Scope 1 (ton CO₂e)</li>
+            <li><b>Q<sub>i</sub></b> kuantitas bahan bakar i · <b>EF<sub>i</sub></b> faktor emisinya</li>
+            <li><b>28, 265</b> GWP CH₄ dan N₂O (AR5)</li>
+          </ul>
+          <div class="kf-label mt-2">Scope 2</div>
+          <div class="kf" data-tex="\begin{aligned} \text{Listrik bersih} &= T_{4.3} - T_{4.2} \\[2pt] \text{kWh} &= \text{Listrik bersih} \div 1.115 \\[2pt] E_{S2} &= \text{kWh} \times 0{,}80 \div 1000 \end{aligned}"></div>
+          <ul class="kf-legend">
+            <li><b>T<sub>4.3</sub>, T<sub>4.2</sub></b> nilai Tabel 4.3 dan 4.2 BPS</li>
+            <li><b>1.115</b> tarif listrik I-3 (Rp/kWh) · <b>0,80</b> faktor grid JAMALI</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-7">
+        <div class="chart-box h-100">
+          <p class="eyebrow mb-2">Scope 1 vs Scope 2 tahun 2016, per sektor (ton CO₂e)</p>
+          <div class="chart-h"><canvas id="chartScope2016"></canvas></div>
+        </div>
+      </div>
+    </div>
+    <div class="result-box mt-3">
+      <p class="mb-0 lead-sm"><strong>Keluaran.</strong> Lima sektor <strong>13.607.754 ton CO₂e</strong> (2016): Scope 1 8.276.937 + Scope 2 5.330.818.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     9 · TAHAP 1, FAKTOR & BAHAN BAKAR
+     ====================================================================== -->
+<section class="deck-page" data-group="Blok A, Besaran" data-title="Tahap 1 · Faktor Emisi &amp; Bahan Bakar">
+  <div class="container-xl">
+    <div class="page-head d-flex align-items-end gap-3 flex-wrap">
+      <span class="step-num">T1</span><h2 class="page-title">Faktor Emisi dan Pemakaian Bahan Bakar</h2>
+      <span class="badge badge-step ms-auto">Hasil rinci · Scope 1</span>
+    </div>
+    <p class="eyebrow mb-2">Faktor emisi delapan bahan bakar (GHG Protocol CST v2.0 · GWP AR5)</p>
+    <div class="table-responsive mb-3"><table class="table table-sm table-hover align-middle" id="tblFuelFactors"></table></div>
+    <div class="row g-3">
+      <div class="col-xl-7">
+        <p class="eyebrow mb-2">Kuantitas pemakaian bahan bakar 2016 (BPS Tabel 4.1, satuan fisik)</p>
+        <div class="table-responsive mb-3"><table class="table table-sm table-hover align-middle" id="tblFuelQty"></table></div>
+        <p class="eyebrow mb-2">Emisi Scope 1 per bahan bakar (ton CO₂e)</p>
+        <div class="table-responsive"><table class="table table-sm table-hover align-middle" id="tblFuelEmis"></table></div>
+      </div>
+      <div class="col-xl-5">
+        <div class="chart-box h-100">
+          <p class="eyebrow mb-2">Hasil, emisi menurut jenis bahan bakar, total 5 sektor</p>
+          <div class="chart-h-lg"><canvas id="chartFuel"></canvas></div>
+          <p class="small-2 text-muted-2 mb-0 mt-2">Solar menyumbang porsi terbesar (4,29 juta ton), disusul minyak bakar/MFO dan batubara.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     10 · TAHAP 1, SCOPE 2 RINCI
+     ====================================================================== -->
+<section class="deck-page" data-group="Blok A, Besaran" data-title="Tahap 1 · Scope 2 Rinci">
+  <div class="container-xl">
+    <div class="page-head d-flex align-items-end gap-3 flex-wrap">
+      <span class="step-num">T1</span><h2 class="page-title">Scope 2: dari Biaya Listrik ke Emisi</h2>
+      <span class="badge badge-step ms-auto">Hasil rinci · Scope 2</span>
+    </div>
+    <div class="formula-wrap mb-3">
+      <div class="kf" data-tex="\begin{aligned} \text{Listrik bersih}_{(000\,Rp)} &= T_{4.3} - T_{4.2} \\[2pt] \text{kWh} &= \text{Listrik bersih} \times 1000 \div 1.115 \\[2pt] E_{S2}\ (t\,CO_2e) &= \text{kWh} \times 0{,}80 \div 1000 \end{aligned}"></div>
+      <ul class="kf-legend">
+        <li><b>T<sub>4.3</sub></b> Tabel 4.3 BPS (BB + listrik + gas) · <b>T<sub>4.2</sub></b> Tabel 4.2 (nilai BB + pelumas)</li>
+        <li><b>1.115</b> tarif I-3 (Rp/kWh) · <b>0,80</b> faktor grid JAMALI (ton CO₂/MWh)</li>
+      </ul>
+    </div>
+    <div class="table-responsive mb-3"><table class="table table-sm table-hover align-middle" id="tblListrik"></table></div>
+    <div class="row g-3">
+      <div class="col-lg-7">
+        <p class="eyebrow mb-2">Parameter perhitungan dan sumbernya</p>
+        <div class="table-responsive"><table class="table table-sm table-hover align-middle" id="tblParams"></table></div>
+      </div>
+      <div class="col-lg-5">
+        <div class="card-soft p-3 mb-3">
+          <p class="eyebrow mb-2">Asumsi dan catatan Tahap 1</p>
+          <ul class="small mb-0 ps-3">
+            <li>Scope 1 hanya mencakup pembakaran langsung. <strong>Emisi proses</strong> (kalsinasi, reduksi kimia) belum masuk.</li>
+            <li>Scope 2 memakai pendekatan <em>spend-based</em> karena statistik BPS tidak memuat kWh.</li>
+            <li>Tarif I-3 dipakai rata. BPS menggabungkan pabrik menengah dan besar.</li>
+            <li>Faktor grid berasal dari inventarisasi 2019, dipakai untuk tahun acuan 2016 karena satu-satunya yang berkekuatan surat keputusan.</li>
+            <li>Jenis batubara memakai padanan <em>other bituminous coal</em>, pengungkit terbesar hasil Scope 1.</li>
+          </ul>
+        </div>
+        <div class="result-box">
+          <p class="mb-0 small"><strong>Keluaran.</strong> Total listrik bersih Rp 7,43 triliun → 6.664 GWh → <strong>5.330.818 ton CO₂e</strong> Scope 2 pada 2016.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     11 · TAHAP 2
+     ====================================================================== -->
+<section class="deck-page" data-group="Blok A, Besaran" data-title="Tahap 2 · Proyeksi PDRB ke 2025">
+  <div class="container-xl">
+    <div class="page-head d-flex align-items-end gap-3 flex-wrap">
+      <span class="step-num">T2</span><h2 class="page-title">Proyeksi Emisi dan Nilai Tambah ke 2025</h2>
+      <span class="badge badge-step ms-auto">Blok A · Tahap 2 dari 9</span>
+    </div>
+    <div class="row g-3 mb-3">
+      <div class="col-lg-4">
+        <div class="method-box h-100">
+          <p class="eyebrow mb-2">Langkah kerja</p>
+          <ul class="pt-list mb-0">
+            <li>Petakan tiap sektor ke lapangan usaha PDRB yang sepadan</li>
+            <li>Faktor pengali = PDRB 2025 ÷ PDRB 2016 (harga konstan 2010)</li>
+            <li>Kalikan emisi 2016 dengan faktor sektornya</li>
+            <li>Pakai faktor sama untuk proyeksi nilai tambah</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="card-soft p-3 h-100">
+          <p class="eyebrow mb-2">Alasan memilih PDRB</p>
+          <ul class="small mb-0 ps-3">
+            <li>Satu-satunya seri aktivitas yang tersedia lengkap pada tingkat Provinsi Jawa Timur dan terpilah per subsektor industri.</li>
+            <li>Pilihan pertama sebenarnya indeks atau volume produksi, namun keduanya hanya tersedia pada tingkat nasional.</li>
+            <li>PDRB berkaitan langsung dengan volume proses produksi, sehingga pertumbuhannya mewakili pertumbuhan aktivitas penghasil emisi.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="formula-wrap h-100">
+          <div class="kf" data-tex="\begin{aligned} f &= PDRB_{2025} \div PDRB_{2016} \\[2pt] E_{2025} &= E_{2016} \times f \\[2pt] NT_{2025} &= NT_{2016} \times f \end{aligned}"></div>
+          <ul class="kf-legend">
+            <li><b>f</b> faktor pengali (PDRB harga konstan 2010)</li>
+            <li><b>E</b> emisi · <b>NT</b> nilai tambah</li>
+            <li>Asumsi: intensitas emisi per unit keluaran riil tetap</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <p class="eyebrow mb-2">Hasil, tabel lengkap seluruh sektor, 2016 vs 2025 (ton CO₂e)</p>
+    <div class="table-responsive mb-3"><table class="table table-sm table-hover align-middle" id="tblProjection"></table></div>
+    <div class="row g-3">
+      <div class="col-lg-8"><div class="chart-box"><p class="eyebrow mb-2">Hasil, perbandingan total emisi 2016 dan perkiraan 2025</p><div class="chart-h"><canvas id="chartProjection"></canvas></div></div></div>
+      <div class="col-lg-4">
+        <div class="result-box mb-3"><p class="mb-0 small"><strong>Keluaran.</strong> Total 2025 <strong>25.996.910 ton CO₂e</strong>, naik 91% dari 2016. Kimia + Pupuk 55%, Makanan 34%.</p></div>
+        <div class="caveat"><p class="mb-0 small"><strong>Batas tafsir.</strong> Karena intensitas emisi dan faktor grid dianggap tetap, hasil 2025 adalah <strong>batas atas</strong>, efisiensi energi dan perbaikan bauran pembangkit tidak diperhitungkan.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     12 · TAHAP 3
+     ====================================================================== -->
+<section class="deck-page" data-group="Blok B, Lokasi" data-title="Tahap 3 · Populasi &amp; Titik Lokasi">
+  <div class="container-xl">
+    <div class="page-head d-flex align-items-end gap-3 flex-wrap">
+      <span class="step-num">T3</span><h2 class="page-title">Populasi dan Titik Lokasi Perusahaan 2025</h2>
+      <span class="badge badge-step ms-auto">Blok B · Tahap 3 dari 9</span>
+    </div>
+    <div class="row g-3">
+      <div class="col-xl-7">
+        <div class="method-box mb-3">
+          <p class="eyebrow mb-2">Langkah kerja</p>
+          <ul class="pt-list mb-0">
+            <li>Satukan 10 direktori BPS 2016–2025 jadi riwayat per perusahaan, cocokkan nama, kode pos, koordinat</li>
+            <li>Pakai semua baris direktori 2025</li>
+            <li>Tambah perusahaan yang tercatat 3 tahun berturut hingga 2024, atau terverifikasi Google Maps</li>
+            <li>Gugurkan yang ditandai tutup permanen</li>
+            <li>Tambah pabrik KEK dan kawasan industri dari peta</li>
+            <li>Pilih alamat terlengkap yang memuat kode pos</li>
+            <li>Koordinat dari pin Google Maps, jika tak ada pakai centroid kelurahan, kecamatan, kabupaten</li>
+          </ul>
+        </div>
+        <div class="caveat">
+          <p class="mb-0 small"><strong>Asumsi.</strong> Titik Google Maps dipakai sebagai proksi keberadaan perusahaan pada 2025. Koordinat centroid menempatkan pabrik pada titik wakil, sehingga ketelitian sebaran dalam sel menurun.</p>
+        </div>
+      </div>
+      <div class="col-xl-5">
+        <div class="card-sage p-3 mb-3 d-flex align-items-center gap-3">
+          <span class="stat stat-xl" id="kpiCompany2">3.641</span>
+          <p class="mb-0 small">perusahaan dengan titik lokasi, siap dipakai untuk tahun 2025</p>
+        </div>
+        <div class="card-soft p-3 mb-3">
+          <p class="eyebrow mb-2">Masukan</p>
+          <ul class="small mb-0 ps-3">
+            <li>Sepuluh terbitan Direktori Perusahaan IBS Jawa Timur 2016–2025</li>
+            <li>Hasil geocoding alamat direktori (folder 07)</li>
+            <li>Penelusuran Google Maps via Playwright (hasil_pencarian_maps.jsonl)</li>
+            <li>Batas desa dan tabel kode pos untuk koordinat pengganti</li>
+          </ul>
+        </div>
+        <div class="result-box">
+          <p class="eyebrow mb-1">Keluaran</p>
+          <ul class="small mb-0 ps-3">
+            <li>Lima berkas Excel titik perusahaan per sektor</li>
+            <li>audit_kandidat.csv, jejak keputusan tiap identitas</li>
+            <li>Kolom Sumber_Koordinat dan Status_Bisnis_Maps sebagai penanda mutu</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     13 · TAHAP 4
+     ====================================================================== -->
+<section class="deck-page" data-group="Blok B, Lokasi" data-title="Tahap 4 · Pengisian Tenaga Kerja">
+  <div class="container-xl">
+    <div class="page-head d-flex align-items-end gap-3 flex-wrap">
+      <span class="step-num">T4</span><h2 class="page-title">Pengisian Tenaga Kerja per Perusahaan</h2>
+      <span class="badge badge-step ms-auto">Blok B · Tahap 4 dari 9</span>
+    </div>
+    <p class="lead-sm mb-3">Mengubah kolom tenaga kerja yang bercampur angka, rentang, dan sel kosong menjadi satu angka bulat (<code>TK_final</code>) untuk setiap pabrik. Dari 3.641 perusahaan, sekitar <strong>66% sudah berangka pasti</strong> dan <strong>34% perlu diisi</strong>.</p>
+    <div class="table-responsive mb-3"><table class="table table-sm table-hover align-middle" id="tblTkCondition"></table></div>
+    <div class="row g-3">
+      <div class="col-lg-5">
+        <div class="method-box h-100">
+          <p class="eyebrow mb-2">Langkah kerja</p>
+          <ul class="pt-list mb-0">
+            <li>Kumpulkan donor, yaitu baris ber-angka pasti</li>
+            <li>Susun median donor per sektor × rentang dan per sektor × badan usaha</li>
+            <li>Isi baris berentang dengan median rentang dan sektor yang sama</li>
+            <li>Isi baris kosong dengan median sektor × badan usaha, naik tingkat jika donor kurang dari lima</li>
+            <li>Bulatkan, batas bawah 20 orang untuk baris yang diisi</li>
+            <li>Turunkan kelas ukuran, simpan jejak <code>sumber_tk</code> dan <code>keyakinan</code></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-7">
+        <div class="row g-3">
+          <div class="col-12">
+            <p class="eyebrow mb-2">Hasil: median donor per rentang</p>
+            <div class="table-responsive"><table class="table table-sm align-middle mb-0" id="tblTkMedRentang"></table></div>
+          </div>
+          <div class="col-12">
+            <p class="eyebrow mb-2">Hasil: median per badan usaha (sel kosong)</p>
+            <div class="table-responsive"><table class="table table-sm align-middle mb-0" id="tblTkMedBadan"></table></div>
+          </div>
+          <div class="col-12">
+            <div class="card-soft p-3">
+              <p class="eyebrow mb-2">Alasan memakai median, bukan rata-rata</p>
+              <p class="small mb-2">Sebaran tenaga kerja miring, pabrik kecil banyak dan pabrik raksasa sedikit. Median tahan pencilan dan mewakili perusahaan tipikal, sedangkan rata-rata terdorong ke atas oleh pabrik besar. Median Makanan rentang 20–99 adalah <strong>29 orang</strong> dari 888 pabrik, di bawah titik tengah rentang (60).</p>
+              <p class="small mb-0 text-muted-2">Pengisian dipisah per sektor dan per badan usaha karena skala PT, CV, dan UD berbeda jauh.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     14 · TAHAP 5
+     ====================================================================== -->
+<section class="deck-page" data-group="Blok B, Lokasi" data-title="Tahap 5 · Kerangka Grid EDGAR">
+  <div class="container-xl">
+    <div class="page-head d-flex align-items-end gap-3 flex-wrap">
+      <span class="step-num">T5</span><h2 class="page-title">Kerangka Grid dan Pengolahan Raster EDGAR</h2>
+      <span class="badge badge-step ms-auto">Blok B · Tahap 5 dari 9</span>
+    </div>
+    <div class="row g-3">
+      <div class="col-lg-7">
+        <div class="method-box mb-3">
+          <p class="eyebrow mb-2">Langkah kerja</p>
+          <ul class="pt-list mb-0">
+            <li>Potong raster EDGAR proses kimia dengan batas Jawa Timur</li>
+            <li>Bersihkan nilainya jadi kerangka sel kosong satu provinsi</li>
+            <li>Pakai kerangka itu sebagai geometri bersama semua sektor dan variabel</li>
+            <li>Simpan raster terisi EDGAR sebagai sumber Scope 1 kimia</li>
+          </ul>
+        </div>
+        <div class="card-soft p-3">
+          <p class="eyebrow mb-2">Pemetaan sektor EDGAR ke KBLI</p>
+          <table class="table table-sm mb-2">
+            <thead><tr><th>Sektor EDGAR</th><th>Padanan KBLI</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>Chemical processes</td><td>KBLI 20 (Kimia)</td><td><span class="badge badge-soft">dipakai</span></td></tr>
+              <tr><td>Iron &amp; steel</td><td>KBLI 24 (Logam dasar)</td><td><span class="badge badge-soft">dipakai</span></td></tr>
+              <tr><td class="text-muted-2">tidak ada padanan</td><td class="text-muted-2">KBLI 10, 11, 13</td><td><span class="badge bg-secondary">alokasi BPS</span></td></tr>
+            </tbody>
+          </table>
+          <p class="small-2 text-muted-2 mb-0">Makanan, minuman, dan tekstil tidak punya padanan pada kedua grid proses EDGAR, sehingga sebarannya sepenuhnya memakai alokasi BPS lewat tenaga kerja.</p>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="chart-box mb-3">
+          <p class="eyebrow mb-2">Hasil, jumlah sel grid terisi per sektor</p>
+          <div class="chart-h-sm"><canvas id="chartCells"></canvas></div>
+        </div>
+        <div class="table-responsive mb-3"><table class="table table-sm table-hover align-middle" id="tblNormMax"></table></div>
+        <div class="caveat"><p class="mb-0 small"><strong>Asumsi.</strong> Satu sel berukuran ±11 km, sehingga beberapa pabrik sejenis dapat berada pada sel yang sama. Hasil akhir <strong>tidak dapat dibaca sebagai emisi satu pabrik tertentu</strong>. Nilai EDGAR sendiri berasal dari pemodelan global, sehingga ketelitiannya pada skala kabupaten perlu dibaca hati-hati.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     15 · TAHAP 6
+     ====================================================================== -->
+<section class="deck-page" data-group="Blok C, Sebaran" data-title="Tahap 6 · Distribusi Proxy Tenaga Kerja">
+  <div class="container-xl">
+    <div class="page-head d-flex align-items-end gap-3 flex-wrap">
+      <span class="step-num">T6</span><h2 class="page-title">Distribusi Emisi ke Sel Grid</h2>
+      <span class="badge badge-step ms-auto">Blok C · Tahap 6 dari 9</span>
+    </div>
+    <div class="row g-3 mb-3">
+      <div class="col-lg-6">
+        <div class="method-box h-100">
+          <p class="eyebrow mb-2">Langkah kerja</p>
+          <ul class="pt-list mb-0">
+            <li>Jumlahkan <code>TK_final</code> per subsektor → total tenaga kerja</li>
+            <li>Emisi provinsi ÷ total TK → emisi per satu pekerja</li>
+            <li>Kalikan dengan <code>TK_final</code> tiap pabrik → emisi per pabrik</li>
+            <li>Tentukan sel grid tiap pabrik dari lintang dan bujur</li>
+            <li>Jumlahkan emisi pabrik dalam satu sel → sel terisi</li>
+            <li>Simpan raster per sektor, terpisah Scope 1 dan Scope 2</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="formula-wrap mb-3">
+          <div class="kf" data-tex="\begin{aligned} e_{TK} &= E_{\text{sektor}} \div \textstyle\sum TK_{\text{final}} \\[2pt] E_{\text{pabrik}} &= TK_{\text{final}} \times e_{TK} \\[2pt] E_{\text{sel}} &= \textstyle\sum E_{\text{pabrik}} \end{aligned}"></div>
+          <ul class="kf-legend">
+            <li><b>e<sub>TK</sub></b> emisi per satu tenaga kerja · <b>E<sub>sektor</sub></b> emisi provinsi subsektor 2025</li>
+            <li><b>E<sub>sel</sub></b> jumlah emisi semua pabrik dalam satu sel grid</li>
+          </ul>
+        </div>
+        <div class="caveat">
+          <p class="eyebrow mb-1">Dua varian alokasi</p>
+          <p class="small mb-0">Sektor yang nilainya berasal dari BPS memakai rumus intensitas di atas. Sel yang nilainya sudah
+          berasal dari EDGAR memakai varian <strong>proporsional dalam sel</strong>:
+          <code>E_pabrik = E_sel × (TK_pabrik ÷ TK_sel)</code>. Varian kedua menjaga jumlah sel tetap utuh, sehingga tidak
+          ada emisi yang hilang atau bertambah.</p>
+        </div>
+      </div>
+    </div>
+    <p class="eyebrow mb-2">Hasil, intensitas emisi per satu tenaga kerja, tiap subsektor</p>
+    <div class="table-responsive mb-3"><table class="table table-sm table-hover align-middle" id="tblTkAlloc"></table></div>
+    <div class="row g-3">
+      <div class="col-lg-7"><div class="result-box h-100">
+        <p class="eyebrow mb-1">Contoh hasil nyata</p>
+        <p class="small mb-0">Kotak peringkat-1 sektor Kimia (Kabupaten Sidoarjo) memperoleh <strong>1.171.676 ton CO₂e</strong>,
+        nilai tambah Rp 18,5 triliun, dan 11.752 tenaga kerja, terbesar di antara 444 kotak Kimia.
+        Seluruh 857 kotak dapat ditelusuri di halaman <button class="btn btn-sm btn-outline-dark py-0 jump" data-jump="23">Jelajahi Semua Data</button></p>
+      </div></div>
+      <div class="col-lg-5"><div class="caveat h-100"><p class="mb-0 small"><strong>Asumsi terlemah.</strong> Tenaga kerja dianggap sebanding dengan emisi dalam satu sektor. Asumsi ini paling lemah pada sektor padat modal seperti kimia dan logam dasar, karena satu pabrik berkapasitas besar dapat beremisi tinggi dengan pekerja sedikit. Intensitas juga dianggap seragam di seluruh provinsi untuk satu subsektor.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     16 · TAHAP 7
+     ====================================================================== -->
+<section class="deck-page" data-group="Blok C, Sebaran" data-title="Tahap 7 · Pemisahan Pupuk–Kimia">
+  <div class="container-xl">
+    <div class="page-head d-flex align-items-end gap-3 flex-wrap">
+      <span class="step-num">T7</span><h2 class="page-title">Pemisahan Pupuk dan Kimia pada KBLI 20</h2>
+      <span class="badge badge-step ms-auto">Blok C · Tahap 7 dari 9</span>
+    </div>
+    <div class="row g-3 mb-3">
+      <div class="col-lg-4">
+        <div class="card-soft p-3 h-100">
+          <p class="eyebrow mb-2">Latar masalah</p>
+          <p class="small mb-2">Statistik BPS dan raster EDGAR keduanya menyajikan Pupuk dan Kimia sebagai <strong>satu angka</strong> (KBLI 20). Kerangka Acuan menuntut keduanya dilaporkan terpisah karena jalur dekarbonisasinya berbeda.</p>
+          <p class="small mb-0 text-muted-2">Bobot tenaga kerja saja tidak cukup memisahkan keduanya, karena emisi per pekerja pabrik pupuk dan pabrik kimia berbeda jauh.</p>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="method-box h-100">
+          <p class="eyebrow mb-2">Langkah kerja</p>
+          <ul class="pt-list mb-0">
+            <li>Kumpulkan emisi dan pendapatan emiten pupuk dan kimia 2025</li>
+            <li>Hitung intensitas emisi tiap perusahaan (emisi ÷ pendapatan)</li>
+            <li>Emisi kimia 67,635× emisi pupuk (Scope 1) dan 53,094× (Scope 2)</li>
+            <li>Kalikan TK subsektor dengan rasionya → bobot tertimbang</li>
+            <li>Bagi emisi KBLI 20 menurut bobot → pupuk dan kimia terpisah</li>
+            <li>Sel yang hanya satu subsektor memakai angka utuh</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row g-3">
+      <div class="col-lg-4"><div class="formula-wrap h-100">
+        <div class="kf" data-tex="\begin{aligned} w_{\text{sub}} &= TK_{\text{sub}} \times k_{\text{sub}} \\[4pt] E_{\text{sub}} &= E_{KBLI20} \times \dfrac{w_{\text{sub}}}{\sum w_{\text{sub}}} \end{aligned}"></div>
+        <ul class="kf-legend">
+          <li><b>w<sub>sub</sub></b> bobot tertimbang · <b>k<sub>sub</sub></b> faktor intensitas</li>
+          <li><b>k</b> Scope 1: kimia 67,635, pupuk 1 · Scope 2: kimia 53,094, pupuk 1</li>
+        </ul>
+      </div></div>
+      <div class="col-lg-4">
+        <div class="row g-3">
+          <div class="col-6"><div class="card-ink p-3 text-center"><p class="eyebrow mb-1" style="color:#B7D894">Scope 1</p><p class="stat stat-lg mb-0">68×</p><p class="small-2 mb-0">emisi kimia dibanding pupuk</p></div></div>
+          <div class="col-6"><div class="card-ink p-3 text-center"><p class="eyebrow mb-1" style="color:#B7D894">Scope 2</p><p class="stat stat-lg mb-0">53×</p><p class="small-2 mb-0">emisi kimia dibanding pupuk</p></div></div>
+          <div class="col-12"><div class="result-box"><p class="small mb-0"><strong>Keluaran.</strong> Raster emisi terpisah untuk Kimia (444 sel) dan Pupuk (20 sel), Scope 1 dan Scope 2.</p></div></div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="caveat h-100">
+          <p class="eyebrow mb-1">Grid Kimia Scope 1 bersifat hibrida</p>
+          <p class="small mb-2">Sel ber-nilai EDGAR dibagi menurut bobot tertimbang, sel kosong yang berisi pabrik ditambal alokasi BPS. <strong>Hanya Scope 1 Kimia</strong> diperlakukan demikian. Sektor lain memakai alokasi BPS lewat tenaga kerja.</p>
+          <p class="small-2 mb-0 text-muted-2">Akibatnya total emisi hasil penjumlahan grid tidak persis sama dengan total proyeksi PDRB pada Tahap 2.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     17 · TAHAP 8
+     ====================================================================== -->
+<section class="deck-page" data-group="Blok C, Sebaran" data-title="Tahap 8 · Nilai Tambah &amp; Tenaga Kerja">
+  <div class="container-xl">
+    <div class="page-head d-flex align-items-end gap-3 flex-wrap">
+      <span class="step-num">T8</span><h2 class="page-title">Nilai Tambah Ekonomi dan Tenaga Kerja ke Sel Grid</h2>
+      <span class="badge badge-step ms-auto">Blok C · Tahap 8 dari 9</span>
+    </div>
+    <div class="row g-3 mb-3">
+      <div class="col-lg-6">
+        <div class="method-box h-100">
+          <p class="eyebrow mb-2">Langkah kerja</p>
+          <ul class="pt-list mb-0">
+            <li>Nilai tambah provinsi ÷ total TK subsektor → nilai tambah per pekerja</li>
+            <li>Kalikan dengan <code>TK_final</code> tiap perusahaan</li>
+            <li>Jumlahkan nilai tambah pabrik dalam satu sel</li>
+            <li>Jumlahkan <code>TK_final</code> dalam satu sel, TK tak perlu proxy karena tercatat per perusahaan</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card-soft p-3 h-100">
+          <p class="eyebrow mb-2">Masukan dan keluaran</p>
+          <p class="small mb-2"><strong>Masukan.</strong> Nilai tambah industri 2016 per KBLI (BPS Tabel 6) proyeksi 2025, titik perusahaan bertenaga kerja, grid kosong.</p>
+          <p class="small mb-2"><strong>Keluaran.</strong> Raster <code>GRID_Ekonomi</code> dan <code>GRID_TK</code> per sektor. Tiap sel kini memuat tiga angka, yaitu emisi, nilai tambah, dan tenaga kerja.</p>
+          <div class="d-flex gap-2 flex-wrap">
+            <span class="badge badge-soft"><svg style="width:12px;height:12px;vertical-align:-2px;stroke:currentColor;fill:none;stroke-width:2"><use href="#i-cloud"/></svg> Emisi (t CO₂e)</span>
+            <span class="badge badge-soft">Nilai tambah (×10³ Rp)</span>
+            <span class="badge badge-soft">Tenaga kerja (orang)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="caveat">
+      <p class="mb-0 small"><strong>Asumsi.</strong> Nilai tambah dianggap sebanding dengan tenaga kerja, sehingga produktivitas per pekerja dianggap seragam. Tenaga kerja muncul <strong>dua kali</strong>, sebagai pembobot distribusi (Tahap 6 dan 8) dan variabel penilaian (Tahap 9), sehingga korelasi antar variabel tinggi secara bawaan.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     18 · TAHAP 9, SKOR
+     ====================================================================== -->
+<section class="deck-page" data-group="Blok D, Prioritas" data-title="Tahap 9 · Normalisasi &amp; Skor">
+  <div class="container-xl">
+    <div class="page-head d-flex align-items-end gap-3 flex-wrap">
+      <span class="step-num">T9</span><h2 class="page-title">Normalisasi dan Skor Prioritas</h2>
+      <span class="badge badge-step ms-auto">Blok D · Tahap 9 dari 9</span>
+    </div>
+    <div class="row g-3 mb-3">
+      <div class="col-lg-5">
+        <div class="formula-wrap mb-3">
+          <div class="kf" data-tex="\begin{aligned} n_e &= \text{emisi} \div \text{maks}_{\text{sektor}}\,\text{emisi} \\[2pt] n_k &= \text{ekonomi} \div \text{maks}_{\text{sektor}}\,\text{ekonomi} \\[2pt] n_t &= \text{TK} \div \text{maks}_{\text{sektor}}\,\text{TK} \\[4pt] S &= \tfrac{1}{3}n_e + \tfrac{1}{3}n_k + \tfrac{1}{3}n_t \end{aligned}"></div>
+          <ul class="kf-legend">
+            <li><b>n<sub>e</sub>, n<sub>k</sub>, n<sub>t</sub></b> nilai ternormalisasi emisi, ekonomi, tenaga kerja</li>
+            <li>Pembagi: nilai maksimum per sektor · <b>S</b> skor prioritas akhir</li>
+          </ul>
+        </div>
+        <div class="card-soft p-3">
+          <p class="eyebrow mb-2">Alasan bobot sepertiga yang sama</p>
+          <ul class="small mb-0 ps-3">
+            <li>Kerangka Acuan <strong>menamai kriteria</strong> prioritisasi namun <strong>tidak menetapkan bobotnya</strong>, sehingga pembobotan menjadi pilihan metodologi tim.</li>
+            <li>Bobot setara adalah pembacaan netral. Peringkat tetap muncul dari selisih data antar sel, bukan dari keputusan bobot.</li>
+            <li>Rujukan praktik: OECD &amp; JRC (2008) <em>Handbook on Constructing Composite Indicators</em>; Dawes (1979) <em>American Psychologist</em> yang menunjukkan bobot setara umumnya kokoh.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-7">
+        <p class="eyebrow mb-2">Penyebut normalisasi, nilai maksimum per sektor</p>
+        <div class="table-responsive mb-3"><table class="table table-sm table-hover align-middle" id="tblNormMax2"></table></div>
+        <div class="card-soft p-3">
+          <p class="eyebrow mb-2">Uji kepekaan bobot <span class="badge bg-secondary">ilustrasi</span></p>
+          <div class="mb-2" style="height:clamp(170px,22vh,230px)"><canvas id="chartScoreHist"></canvas></div>
+          <p class="small-2 text-muted-2 mb-2">Sebaran skor seluruh 857 kotak (sumbu tegak skala logaritmik), menumpuk tajam di ujung rendah.</p>
+          <p class="small mb-2">Geser untuk melihat seberapa peka skor satu kotak nyata terhadap perubahan bobot. Kotak contoh: <strong>Kimia, Kabupaten Sidoarjo</strong> (ne = 0,39 · nk = 1,00 · nt = 1,00). Hasil resmi tetap memakai bobot sepertiga.</p>
+          <label class="form-label small mb-1">Bobot emisi: <strong id="wEmisiVal">33%</strong> · ekonomi &amp; tenaga kerja masing-masing <strong id="wRestVal">33%</strong></label>
+          <input type="range" class="form-range" id="wEmisi" min="0" max="100" value="33">
+          <div class="d-flex align-items-center gap-3 mt-2">
+            <div class="progress flex-grow-1" style="height:18px"><div class="progress-bar" id="scoreBar" style="width:0;background:#6B8A6C"></div></div>
+            <span class="stat" style="font-size:1.3rem">Skor <span id="scoreVal">0,00</span></span>
+            <span class="badge" id="scoreCat">, </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     19 · TAHAP 9, KATEGORI & KABUPATEN
+     ====================================================================== -->
+<section class="deck-page" data-group="Blok D, Prioritas" data-title="Tahap 9 · Kategori &amp; Agregasi Kabupaten">
+  <div class="container-xl">
+    <div class="page-head d-flex align-items-end gap-3 flex-wrap">
+      <span class="step-num">T9</span><h2 class="page-title">Kategori Prioritas dan Agregasi ke Kabupaten</h2>
+      <span class="badge badge-step ms-auto">Hasil Tahap 9</span>
+    </div>
+    <div class="row g-3 mb-3">
+      <div class="col-xl-7">
+        <p class="eyebrow mb-2">Ambang kategori dan jumlah kotak nyata (857 sel, lima sektor)</p>
+        <div class="table-responsive"><table class="table table-sm table-hover align-middle" id="tblCategories"></table></div>
+        <div class="result-box mt-2"><p class="mb-0 small">Hanya <strong id="kpiPrior2">8</strong> kotak (kurang dari 1%) masuk kategori Sangat Prioritas atau Prioritas, sehingga intervensi dapat difokuskan sejak awal pada titik yang sangat sedikit.</p></div>
+      </div>
+      <div class="col-xl-5">
+        <div class="chart-box mb-3"><p class="eyebrow mb-2">Sebaran kategori (skala logaritmik)</p><div class="chart-h-sm"><canvas id="chartCategory"></canvas></div></div>
+        <div class="method-box">
+          <p class="eyebrow mb-2">Agregasi ke kabupaten dan kota</p>
+          <ol class="small mb-0 ps-3">
+            <li>Centroid tiap sel di-overlay ke batas kabupaten dan kota GADM level 2.</li>
+            <li>Sel yang centroidnya jatuh di laut atau di luar Jawa Timur ditandai <em>(di luar batas kab.)</em>.</li>
+            <li>Emisi, nilai tambah, dan tenaga kerja seluruh sel dijumlahkan per kabupaten dan kota.</li>
+            <li>Hasilnya peringkat wilayah administrasi, bukan hanya peringkat kotak kecil.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <div class="caveat">
+      <p class="mb-0 small"><strong>Batas tafsir skor.</strong> Normalisasi dilakukan per sektor sehingga skor antar sektor <strong>tidak dapat dibandingkan langsung</strong>, sel berskor 1 pada Pupuk tidak sepadan dengan sel berskor 1 pada Kimia karena penyebutnya berbeda. Pembagian terhadap nilai maksimum juga membuat skor peka terhadap satu sel pencilan.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     20 · HASIL, ANGKA KUNCI
+     ====================================================================== -->
+<section class="deck-page theme-sage" data-group="Hasil" data-title="Angka Kunci">
+  <div class="container-xl">
+    <p class="eyebrow">Hasil</p>
+    <h2 class="page-title mb-3">Angka-angka Kunci</h2>
+    <div class="row g-3 mb-3">
+      <div class="col-6 col-lg-3"><div class="card bg-white p-3 h-100 border-0"><p class="eyebrow mb-1">Emisi 2016</p><p class="stat stat-lg mb-1">13,6 juta</p><p class="small-2 mb-0 text-muted-2">ton CO₂e · S1 8,28 jt + S2 5,33 jt</p></div></div>
+      <div class="col-6 col-lg-3"><div class="card bg-white p-3 h-100 border-0"><p class="eyebrow mb-1">Perkiraan 2025</p><p class="stat stat-lg mb-1">26,0 juta</p><p class="small-2 mb-0 text-muted-2">ton CO₂e · tumbuh 91%</p></div></div>
+      <div class="col-6 col-lg-3"><div class="card bg-white p-3 h-100 border-0"><p class="eyebrow mb-1">Perusahaan</p><p class="stat stat-lg mb-1" id="kpiCompany3">, </p><p class="small-2 mb-0 text-muted-2">titik lokasi tahun 2025</p></div></div>
+      <div class="col-6 col-lg-3"><div class="card bg-white p-3 h-100 border-0"><p class="eyebrow mb-1">Tenaga kerja</p><p class="stat stat-lg mb-1" id="kpiTk2">, </p><p class="small-2 mb-0 text-muted-2">orang, lima sektor</p></div></div>
+      <div class="col-6 col-lg-3"><div class="card bg-white p-3 h-100 border-0"><p class="eyebrow mb-1">Kotak peta</p><p class="stat stat-lg mb-1" id="kpiGrid2">857</p><p class="small-2 mb-0 text-muted-2">sel 0,1° terisi</p></div></div>
+      <div class="col-6 col-lg-3"><div class="card bg-white p-3 h-100 border-0"><p class="eyebrow mb-1">Emisi terpetakan</p><p class="stat stat-lg mb-1" id="kpiGridEmisi2">, </p><p class="small-2 mb-0 text-muted-2">ton CO₂e di seluruh kotak</p></div></div>
+      <div class="col-6 col-lg-3"><div class="card bg-white p-3 h-100 border-0"><p class="eyebrow mb-1">Wilayah tercatat</p><p class="stat stat-lg mb-1" id="kpiKabCount2">, </p><p class="small-2 mb-0 text-muted-2">kabupaten &amp; kota</p></div></div>
+      <div class="col-6 col-lg-3"><div class="card bg-white p-3 h-100 border-0"><p class="eyebrow mb-1">Prioritas tertinggi</p><p class="stat stat-lg mb-1" id="kpiPrior3">, </p><p class="small-2 mb-0 text-muted-2">kotak Sangat Prioritas + Prioritas</p></div></div>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+      <button class="btn btn-dark btn-sm jump" data-jump="20"><i class="bi bi-geo-alt"></i> Peta sebaran 857 kotak</button>
+      <button class="btn btn-outline-dark btn-sm jump" data-jump="21"><i class="bi bi-bar-chart"></i> Grafik emisi per sektor</button>
+      <button class="btn btn-outline-dark btn-sm jump" data-jump="22"><i class="bi bi-list-ol"></i> Peringkat kabupaten</button>
+      <button class="btn btn-outline-dark btn-sm jump" data-jump="23"><i class="bi bi-table"></i> Tabel lengkap</button>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     21 · HASIL, PETA LEAFLET
+     ====================================================================== -->
+<section class="deck-page" data-group="Hasil" data-title="Peta Sebaran 857 Kotak">
+  <div class="container-xl">
+    <div class="page-head d-flex align-items-end gap-3 flex-wrap">
+      <h2 class="page-title">Peta Sebaran Emisi, 857 Kotak Grid</h2>
+      <span class="badge badge-step ms-auto">Data asli · koordinat dari workbook</span>
+    </div>
+    <p class="lead-sm mb-2">Setiap bulatan adalah satu sel grid 0,1° pada koordinat aslinya. Ukuran bulatan sebanding dengan akar emisi sel, warnanya menandai sektor. Klik bulatan untuk melihat rincian lengkap, dan pakai kotak centang di kanan atas untuk menyaring sektor.</p>
+    <div id="map"></div>
+    <p class="small-2 text-muted-2 mt-2 mb-0">Latar peta dari OpenStreetMap (perlu sambungan internet). Bila latar tidak tampil, bulatan tetap tergambar pada koordinat yang benar.</p>
+  </div>
+</section>
+
+<!-- ======================================================================
+     22 · HASIL, EMISI PER SEKTOR
+     ====================================================================== -->
+<section class="deck-page" data-group="Hasil" data-title="Emisi per Sektor">
+  <div class="container-xl">
+    <div class="page-head d-flex align-items-end gap-3 flex-wrap">
+      <h2 class="page-title">Penyumbang Emisi Terbesar (2025)</h2>
+      <span class="badge badge-step ms-auto">Hasil Tahap 2</span>
+    </div>
+    <div class="row g-3">
+      <div class="col-lg-6"><div class="chart-box h-100"><p class="eyebrow mb-2">Pangsa emisi 2025 per sektor</p><div class="chart-h"><canvas id="chartShare"></canvas></div></div></div>
+      <div class="col-lg-6"><div class="chart-box h-100"><p class="eyebrow mb-2">Perbandingan 2016 dan 2025</p><div class="chart-h"><canvas id="chartProjection2"></canvas></div></div></div>
+    </div>
+    <div class="row g-3 mt-1">
+      <div class="col-lg-8"><div class="result-box h-100"><p class="mb-0 lead-sm">Dua kelompok terbesar, <strong>Kimia + Pupuk (55%)</strong> dan <strong>Makanan (34%)</strong>, menyumbang sekitar 89% dari seluruh emisi lima sektor. Minuman dan Tekstil kecil secara total, tetapi keduanya <strong>didominasi Scope 2</strong> (listrik) sehingga jalur penurunannya berbeda, lewat efisiensi listrik dan pengadaan energi bersih, bukan penggantian bahan bakar.</p></div></div>
+      <div class="col-lg-4"><div class="card-soft p-3 h-100"><p class="eyebrow mb-2">Bauran Scope per sektor</p>
+        <table class="table table-sm mb-0">
+          <thead><tr><th>Sektor</th><th class="text-end">S1</th><th class="text-end">S2</th></tr></thead>
+          <tbody>
+            <tr><td>Makanan</td><td class="text-end">69%</td><td class="text-end">31%</td></tr>
+            <tr><td>Minuman</td><td class="text-end">8%</td><td class="text-end">92%</td></tr>
+            <tr><td>Tekstil</td><td class="text-end">25%</td><td class="text-end">75%</td></tr>
+            <tr><td>Kimia + Pupuk</td><td class="text-end">64%</td><td class="text-end">36%</td></tr>
+            <tr><td>Besi &amp; Baja</td><td class="text-end">36%</td><td class="text-end">64%</td></tr>
+          </tbody>
+        </table></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     23 · HASIL, PERINGKAT KABUPATEN
+     ====================================================================== -->
+<section class="deck-page" data-group="Hasil" data-title="Peringkat Kabupaten &amp; Kota">
+  <div class="container-xl">
+    <div class="page-head d-flex align-items-end gap-3 flex-wrap">
+      <h2 class="page-title">Peringkat Kabupaten dan Kota</h2>
+      <span class="badge badge-step ms-auto" id="kabMeta">, </span>
+    </div>
+    <p class="lead-sm mb-2">Dijumlahkan langsung dari seluruh 857 kotak peta lima sektor. Klik judul kolom untuk mengurutkan.</p>
+    <div class="row g-3">
+      <div class="col-xl-8">
+        <div id="gridKab" class="ag-theme-quartz agmono" style="height:calc(100vh - 300px);min-height:340px;width:100%"></div>
+      </div>
+      <div class="col-xl-4">
+        <div class="chart-box mb-3"><p class="eyebrow mb-2">Dua belas kabupaten teratas menurut emisi</p><div class="chart-h-lg"><canvas id="chartKab"></canvas></div></div>
+        <div class="result-box"><p class="mb-0 small"><strong>Gresik dan Sidoarjo</strong> saja menyumbang 51% total emisi terpetakan. Keduanya juga memimpin pada nilai tambah dan tenaga kerja, sehingga menjadi prioritas pada ketiga variabel sekaligus.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     24 · HASIL, DATA EXPLORER
+     ====================================================================== -->
+<section class="deck-page" data-group="Hasil" data-title="Jelajahi Semua Data (857 Kotak)">
+  <div class="container-xl">
+    <div class="page-head d-flex align-items-end gap-3 flex-wrap">
+      <h2 class="page-title">Jelajahi Semua Data, 857 Kotak Peta</h2>
+      <span class="badge badge-step ms-auto" id="expMeta">, </span>
+    </div>
+    <p class="lead-sm mb-2">Setiap baris adalah satu kotak peta hasil Tahap 6–9, lengkap dengan koordinat, Scope 1, Scope 2, nilai tambah, tenaga kerja, ketiga komponen skor, dan kategorinya. Bukan contoh, ini seluruh hasil perhitungan.</p>
+    <div class="row g-2 align-items-center mb-2">
+      <div class="col-auto"><select class="form-select form-select-sm" id="expSector"><option value="ALL">Semua sektor (857)</option></select></div>
+      <div class="col-auto"><input type="text" class="form-control form-control-sm" id="expSearch" placeholder="Cari kabupaten/kota…" style="min-width:220px"></div>
+      <div class="col-auto"><span class="small-2 text-muted-2">Klik judul kolom untuk mengurutkan</span></div>
+    </div>
+    <div id="gridExp" class="ag-theme-quartz agmono" style="height:calc(100vh - 290px);min-height:340px;width:100%"></div>
+    <p class="small-2 text-muted-2 mt-2 mb-0">Sumber: Prioritas_Grid_Industri_Jatim_2025.xlsx, seluruh baris “RANKING SEL GRID” lima lembar sektor.</p>
+  </div>
+</section>
+
+<!-- ======================================================================
+     25 · HASIL, SCATTER
+     ====================================================================== -->
+<section class="deck-page" data-group="Hasil" data-title="Hubungan Emisi &amp; Tenaga Kerja">
+  <div class="container-xl">
+    <div class="page-head d-flex align-items-end gap-3 flex-wrap">
+      <h2 class="page-title">Hubungan Emisi dan Tenaga Kerja per Kotak</h2>
+      <span class="badge badge-step ms-auto">857 titik · skala log</span>
+    </div>
+    <p class="lead-sm mb-2">Setiap titik adalah satu kotak peta. Karena emisi disebar memakai proxy tenaga kerja (Tahap 6), hubungan keduanya mendekati garis lurus di dalam satu sektor, dan <strong>perbedaan ketinggian antar sektor justru memperlihatkan perbedaan intensitas emisi per pekerja</strong>, dari Kimia yang paling tinggi sampai Tekstil yang paling rendah.</p>
+    <div class="chart-box"><div style="height:min(58vh,520px)"><canvas id="chartScatter"></canvas></div></div>
+    <div class="caveat mt-2"><p class="mb-0 small">Pola garis lurus di sini <strong>adalah akibat metode</strong>, bukan temuan empiris: ia memperlihatkan asumsi proxy tenaga kerja bekerja seperti yang dirancang. Yang bisa ditafsirkan adalah posisi relatif antar sektor, bukan erat-tidaknya hubungan di dalam satu sektor.</p></div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     26 · HASIL, PETA WEB
+     ====================================================================== -->
+<section class="deck-page" data-group="Hasil" data-title="Peta Web Interaktif">
+  <div class="container-xl">
+    <div class="page-head d-flex align-items-end gap-3 flex-wrap"><h2 class="page-title">Keluaran Lain dan Peta Web</h2></div>
+    <div class="row g-3">
+      <div class="col-lg-6">
+        <div class="card-soft p-3 h-100">
+          <p class="eyebrow mb-2">Daftar keluaran studi</p>
+          <table class="table table-sm mb-0">
+            <thead><tr><th>Jenis</th><th>Produk</th></tr></thead>
+            <tbody>
+              <tr><td>Raster grid</td><td>GRID_Emisi per sektor, Scope 1 dan Scope 2 (t CO₂e)</td></tr>
+              <tr><td>Raster grid</td><td>GRID_Ekonomi per sektor (×10³ Rp)</td></tr>
+              <tr><td>Raster grid</td><td>GRID_TK per sektor (orang)</td></tr>
+              <tr><td>Tabel titik</td><td>Lima berkas Excel perusahaan 2025 dengan TK_final dan jejak keyakinan</td></tr>
+              <tr><td>Workbook</td><td>Prioritas_Grid_Industri_Jatim_2025.xlsx, 14 lembar</td></tr>
+              <tr><td>Workbook</td><td>Kalkulator_Emisi_CO2e_IBS_Jatim_2016.xlsx</td></tr>
+              <tr><td>Workbook</td><td>intensitas-emisi-per-scope-2025.xlsx (kutipan laporan emiten)</td></tr>
+              <tr><td>Dokumentasi</td><td>README.md dan METODE_IMPUTASI_TK.md</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card-soft p-0 overflow-hidden mb-3">
+          <div class="d-flex align-items-center gap-2 px-3 py-2" style="background:#E0F8C7">
+            <span class="d-inline-block rounded-circle" style="width:10px;height:10px;background:#36415A"></span>
+            <span class="d-inline-block rounded-circle" style="width:10px;height:10px;background:#6B8A6C"></span>
+            <span class="d-inline-block rounded-circle" style="width:10px;height:10px;background:#B7D894"></span>
+            <code class="ms-2 small">harisdwicahyo.github.io/emisi_jatim</code>
+          </div>
+          <div class="p-3">
+            <p class="small mb-2">Peta web interaktif menampilkan rekapitulasi per kabupaten dan kota untuk ketiga variabel beserta skor prioritasnya.</p>
+            <a class="btn btn-sm btn-dark" href="https://harisdwicahyo.github.io/emisi_jatim/" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> Buka peta web</a>
+          </div>
+        </div>
+        <div class="result-box"><p class="mb-0 small">Peta pada halaman 22 di dokumen ini memakai <strong>koordinat asli 857 kotak</strong> dari workbook, sehingga dapat dipakai memeriksa posisi sel satu per satu tanpa membuka peta web.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     27 · ASUMSI & KETERBATASAN
+     ====================================================================== -->
+<section class="deck-page" data-group="Penutup" data-title="Asumsi &amp; Keterbatasan">
+  <div class="container-xl">
+    <div class="page-head d-flex align-items-end gap-3 flex-wrap">
+      <h2 class="page-title">Asumsi dan Keterbatasan</h2>
+      <span class="badge badge-step ms-auto">12 asumsi · diurut pengaruh</span>
+    </div>
+    <p class="lead-sm mb-2">Diurutkan menurut besarnya pengaruh terhadap hasil akhir. Urutan ini sekaligus menjadi daftar pertanyaan yang paling mungkin diajukan pembahas.</p>
+    <div class="table-sticky mb-3"><table class="table table-sm table-hover align-middle mb-0" id="tblAssumptions"></table></div>
+    <div class="caveat">
+      <p class="mb-0 lead-sm"><strong>Cakupan yang belum terpenuhi.</strong> Kerangka Acuan komponen 1.3 meminta Scope 1, Scope 2, dan Scope 3 yang material.
+      <strong>Scope 3 belum dipetakan</strong> dalam rantai perhitungan ini, sehingga perlu diputuskan apakah disusun terpisah atau dinyatakan sebagai batas cakupan studi.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     28 · PENUTUP
+     ====================================================================== -->
+<section class="deck-page theme-dark" data-group="Penutup" data-title="Penutup">
+  <div class="glow glow-bl"></div>
+  <div class="container-xl position-relative">
+    <p class="eyebrow mb-3">Penutup</p>
+    <h2 class="display-title mb-3" style="max-width:24ch">Dari Data Pabrik, Menjadi Peta Prioritas</h2>
+    <p class="lead-sm mb-4" style="max-width:74ch;color:#C3D3B6">
+      Dengan menggabungkan statistik resmi BPS, raster satelit EDGAR, dan laporan tahunan perusahaan,
+      studi ini mengubah satu angka emisi provinsi menjadi peringkat kabupaten dan kota, dasar untuk
+      menentukan ke mana program dekarbonisasi Jawa Timur sebaiknya dimulai lebih dahulu.
+    </p>
+    <div class="row g-3 mb-4" style="max-width:900px">
+      <div class="col-md-4"><div class="card-soft p-3 h-100"><p class="eyebrow mb-1">Sembilan tahap</p><p class="small mb-0">dari statistik bahan bakar sampai peringkat wilayah, seluruhnya terdokumentasi dan dapat diulang</p></div></div>
+      <div class="col-md-4"><div class="card-soft p-3 h-100"><p class="eyebrow mb-1">857 kotak peta</p><p class="small mb-0">terisi tiga variabel sekaligus, dapat ditelusuri satu per satu</p></div></div>
+      <div class="col-md-4"><div class="card-soft p-3 h-100"><p class="eyebrow mb-1">12 asumsi terbuka</p><p class="small mb-0">dinyatakan beserta arah pengaruh dan penanganannya</p></div></div>
+    </div>
+    <p class="text-muted-2 small-2 mb-0">CESGS Universitas Airlangga · Studi KATALIS Jawa Timur · Oktober 2026</p>
+  </div>
+</section>
+
+<!-- ======================= KONTROL BAWAH ======================= -->
+<div class="deck-footer">
+  <button class="btn btn-outline-light btn-sm" id="btnPrev"><i class="bi bi-chevron-left"></i> Sebelumnya</button>
+  <button class="btn btn-outline-light btn-sm" data-bs-toggle="offcanvas" data-bs-target="#tocPanel"><i class="bi bi-list-ul"></i></button>
+  <button class="btn btn-light btn-sm" id="btnNext">Berikutnya <i class="bi bi-chevron-right"></i></button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ag-grid-community@32.3.3/dist/ag-grid-community.min.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+/* render semua rumus KaTeX dari atribut data-tex */
+document.addEventListener('DOMContentLoaded',function(){
+  if(!window.katex)return;
+  document.querySelectorAll('.kf').forEach(function(el){
+    try{katex.render(el.getAttribute('data-tex'),el,{displayMode:true,throwOnError:false,fleqn:true});}
+    catch(e){el.textContent=el.getAttribute('data-tex');}
+  });
+});
+</script>
+</body>
+</html>
