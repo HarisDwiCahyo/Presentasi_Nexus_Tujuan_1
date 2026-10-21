@@ -468,7 +468,7 @@
           <ul class="pt-list mb-0">
             <li>Satukan 10 direktori BPS 2016–2025 jadi riwayat per perusahaan, cocokkan nama, kode pos, koordinat</li>
             <li>Pakai semua baris direktori 2025</li>
-            <li>Tambah perusahaan yang tercatat 3 tahun berturut hingga 2024, atau terverifikasi Google Maps</li>
+            <li>Tambah perusahaan yang tercatat 3 tahun berturut-turut sampai 2025, atau terverifikasi Google Maps</li>
             <li>Gugurkan yang ditandai tutup permanen</li>
             <li>Tambah pabrik KEK dan kawasan industri dari peta</li>
             <li>Pilih alamat terlengkap yang memuat kode pos</li>
@@ -488,8 +488,8 @@
           <p class="eyebrow mb-2">Masukan</p>
           <ul class="small mb-0 ps-3">
             <li>Sepuluh terbitan Direktori Perusahaan IBS Jawa Timur 2016–2025</li>
-            <li>Hasil geocoding alamat direktori (folder 07)</li>
-            <li>Penelusuran Google Maps via Playwright (hasil_pencarian_maps.jsonl)</li>
+            <li>Hasil geocoding alamat direktori</li>
+            <li>Penelusuran Google Maps</li>
             <li>Batas desa dan tabel kode pos untuk koordinat pengganti</li>
           </ul>
         </div>
@@ -942,21 +942,6 @@
     </div>
     <div id="gridExp" class="ag-theme-quartz agmono" style="height:calc(100vh - 290px);min-height:340px;width:100%"></div>
     <p class="small-2 text-muted-2 mt-2 mb-0">Sumber: Prioritas_Grid_Industri_Jatim_2025.xlsx, seluruh baris “RANKING SEL GRID” lima lembar sektor.</p>
-  </div>
-</section>
-
-<!-- ======================================================================
-     25 · HASIL, SCATTER
-     ====================================================================== -->
-<section class="deck-page" data-group="Hasil" data-title="Hubungan Emisi &amp; Tenaga Kerja">
-  <div class="container-xl">
-    <div class="page-head d-flex align-items-end gap-3 flex-wrap">
-      <h2 class="page-title">Hubungan Emisi dan Tenaga Kerja per Kotak</h2>
-      <span class="badge badge-step ms-auto">857 titik · skala log</span>
-    </div>
-    <p class="lead-sm mb-2">Setiap titik adalah satu kotak peta. Karena emisi disebar memakai proxy tenaga kerja (Tahap 6), hubungan keduanya mendekati garis lurus di dalam satu sektor, dan <strong>perbedaan ketinggian antar sektor justru memperlihatkan perbedaan intensitas emisi per pekerja</strong>, dari Kimia yang paling tinggi sampai Tekstil yang paling rendah.</p>
-    <div class="chart-box"><div style="height:min(58vh,520px)"><canvas id="chartScatter"></canvas></div></div>
-    <div class="caveat mt-2"><p class="mb-0 small">Pola garis lurus di sini <strong>adalah akibat metode</strong>, bukan temuan empiris: ia memperlihatkan asumsi proxy tenaga kerja bekerja seperti yang dirancang. Yang bisa ditafsirkan adalah posisi relatif antar sektor, bukan erat-tidaknya hubungan di dalam satu sektor.</p></div>
   </div>
 </section>
 

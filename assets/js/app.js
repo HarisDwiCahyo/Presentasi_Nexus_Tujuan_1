@@ -363,28 +363,6 @@ function renderCharts() {
     options: baseOpts({ indexAxis: 'y', plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => fmtN(c.parsed.x) + ' t CO₂e' } } } })
   });
 
-  /* Scatter emisi vs tenaga kerja */
-  const bySector = {};
-  GRID.forEach(g => { (bySector[g.sec] = bySector[g.sec] || []).push({ x: g.tk, y: g.emisi, kab: g.kab, sec: g.sec }); });
-  new Chart(el('chartScatter'), {
-    type: 'scatter',
-    data: {
-      datasets: Object.keys(bySector).map(s => ({
-        label: s, data: bySector[s], backgroundColor: SECTOR_COLOR[s] || '#888', pointRadius: 3.2, pointHoverRadius: 6
-      }))
-    },
-    options: baseOpts({
-      scales: {
-        x: { type: 'logarithmic', title: { display: true, text: 'Tenaga kerja per kotak (orang, skala log)', font: CHART_FONT, color: '#36415A' }, ticks: { font: CHART_FONT, color: '#6F7D66' }, grid: { color: '#EDF2E6' } },
-        y: { type: 'logarithmic', title: { display: true, text: 'Emisi per kotak (t CO₂e, skala log)', font: CHART_FONT, color: '#36415A' }, ticks: { font: CHART_FONT, color: '#6F7D66' }, grid: { color: '#EDF2E6' } }
-      },
-      plugins: {
-        legend: { position: 'top', labels: { font: CHART_FONT, boxWidth: 10 } },
-        tooltip: { callbacks: { label: c => `${cleanKab(c.raw.kab)} · ${c.raw.sec}: ${fmtN(c.raw.y)} t CO₂e · ${fmtN(c.raw.x)} pekerja` } }
-      }
-    })
-  });
-
   /* Histogram sebaran skor seluruh 857 kotak */
   const bins = Array.from({ length: 20 }, () => 0);
   GRID.forEach(g => { bins[Math.min(19, Math.floor(g.score * 20))]++; });
